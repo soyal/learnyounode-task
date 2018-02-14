@@ -2,20 +2,27 @@
  * LS过滤器
  */
 const fs = require('fs')
+const path = require('path')
 
-// const args = process.argv.slice(1)
+const args = process.argv.slice(2)
 
-// const dirPath = args[0]
-// // the suffix to be filtered
-// const pat = args[1]
+const dirPath = args[0]
+// the suffix to be filtered
+const pat = args[1]
 
-function readDir(path, filter) {
-  fs.readdir(path, (err, files) => {
+function readDir(_path, filter) {
+  fs.readdir(_path, (err, files) => {
     if (err) {
       throw err
     }
-    console.log(files)
+    if (filter) {
+      files = files.filter(file => {
+        return path.extname(file) === '.' + filter
+      })
+    }
+    console.log(files.join('\n'))
   })
 }
 
-readDir('./test', null)
+// readDir('./test', 'txt')
+readDir(dirPath, pat)
