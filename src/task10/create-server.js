@@ -1,4 +1,4 @@
-//创建tcp server
+// 创建tcp server
 const net = require('net')
 
 module.exports = function createServer(port) {
